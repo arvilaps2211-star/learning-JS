@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Calculator</title>
+
+    <style>
+        
+        
+        .card {
+            background: rgb(180, 34, 34);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            margin: auto;
+            backdrop-filter: blur(20px);
+        }
+
+        button{
+            background-color: rgb(202, 52, 52);
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            margin: 5px auto;
+            margin-bottom: 10px;
+
+        }
+
+        button:hover
+        {
+            background-color: #ff2d2d;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #ff2d2d, 0 0 10px #ff2d2d, 0 0 10px #ff2d2d;
+
+            button:active {
+                transform: scale(0.7);
+            }
+            
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: 25px;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 22px;
+            color: rgb(0, 0, 0);
+            margin-top: 20px;
+        }
+
+        
+    </style>
+</head>
+<body style="background: linear-gradient(to right, #be4042, #ee822f, #e64649);">
+    <main class="card">
+        <h1>Student Grade Calculator in academic marks</h1>
+        <table>
+            <tr>
+                <td><label for="marks1">Enter Sub1 marks:</label></td>
+                <td><input type="" id="marks1" name="marks1"></td>
+            </tr>
+            <tr>
+                <td><label for="marks2">Enter Sub2 marks:</label></td>
+                <td><input type="" id="marks2" name="marks2"></td>
+            </tr>
+             <tr>
+                <td><label for="marks3">Enter Sub3 marks:</label></td>
+                <td><input type="" id="marks3" name="marks3"></td>
+        </table>
+        <button onclick="calculateGrade()">calculate result</button>
+        <div id="result">result will be displayed here</div>
+    </main>
+
+    <script>
+function calculateGrade() {
+    const marks1 = parseFloat(document.getElementById("marks1").value);
+    const marks2 = parseFloat(document.getElementById("marks2").value);
+    const marks3 = parseFloat(document.getElementById("marks3").value);
+
+    // Check if any of the inputs are not valid numbers
+    //isNaN() func stands for Not a Number
+
+    if (isNaN(marks1) || isNaN(marks2) || isNaN(marks3)) {
+        document.getElementById("result").textContent = "Please enter valid marks for all subjects.";
+        return;
+    }
+
+    const average = (marks1 + marks2 + marks3) / 3;
+    let grade;
+
+    if (average >= 90) {
+        grade = "A";
+        }
+
+        else if (average >= 80) {
+            grade = "B";
+        }
+
+        else if (average >= 70) {
+            grade = "C";    
+        }
+
+        else if (average >= 60) {
+            grade = "D";
+        }
+
+        else {
+            grade = "F";
+        }
+
+    //using backtick (`) instead of str concatenation   
+
+    document.getElementById("result").textContent = `Average: ${average.toFixed(2)}, Grade: ${grade}`;
+
+}
+
+//declares the inputs in number datatype
+
+const input = document.querySelectorAll("input[type='number']");
+
+const inputs = document.querySelectorAll("input");
+
+// when clicks "ENTER" key, it will move to the next input field, and if it's the last input field, it will calculate the grade
+inputs.forEach((input, index) => {
+    input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            if (index + 1 < inputs.length) {
+                inputs[index + 1].focus();
+            } else {
+                calculateGrade();
+            }
+        }
+    });
+});
+    </script>
+</body>
+</html>
