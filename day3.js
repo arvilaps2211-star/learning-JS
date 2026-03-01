@@ -1,110 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>To-Do List App</title>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, purple, blueviolet);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    padding: 10px;
-    width: 70%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-#addTaskButton {
-    background-color: #007BFF;
-    color: white;
-}
-
-#addTaskButton:hover {
-    background-color: #0056b3;
-}
-
-.delete-btn {
-    background: red;
-    color: white;
-    margin-left: 10px;
-}
-
-#clearAll {
-    background: black;
-    color: white;
-    width: 100%;
-    margin-top: 15px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-
-li {
-    background: #f4f4f4;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#taskCount {
-    margin-top: 15px;
-    font-weight: bold;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-    <h1>To-Do List App</h1>
-
-    <input type="text" id="taskInput" placeholder="Enter a new task">
-    <button id="addTaskButton">Add</button>
-
-    <p id="taskCount">Total Tasks: 0</p>
-
-    <ul id="taskList"></ul>
-
-    <button id="clearAll">Clear All</button>
-</div>
-
-<script>
-
-
 // Select Elements
 const input = document.getElementById("taskInput");
 const addBtn = document.getElementById("addTaskButton");
@@ -169,7 +62,7 @@ function renderTasks() {
         deleteBtn.classList.add("delete-btn");
 
         deleteBtn.addEventListener("click", function(e) {
-            e.stopPropagation();    // prevent toggle when deleting from task list
+            e.stopPropagation(); // prevent toggle when deleting
             deleteTask(i);
         });
 
@@ -197,7 +90,3 @@ function clearAll() {
     tasks = [];
     renderTasks();
 }
-
-</script>
-</body>
-</html>
