@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guess The Number</title>
+
+<style>
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Game Container */
+.game-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Heading */
+.game-container h1 {
+    font-size: 24px;
+}
+
+/* Input */
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #667eea;
+}
+
+/* Buttons */
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #667eea;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a67d8;
+    transform: scale(1.05);
+}
+
+/* Result Base */
+#showingresult {
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+/* Result States */
+.correct {
+    color: green;
+    transform: scale(1.1);
+}
+
+.high {
+    color: #e63946;
+    animation: shake 0.3s;
+}
+
+.low {
+    color: #f4a261;
+    animation: shake 0.3s;
+}
+
+.lost {
+    color: black;
+}
+
+/* Score */
+#score {
+    font-size: 14px;
+    color: gray;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="game-container">
+    <h1>Guess The Number</h1>
+    <input id="guessednumber" placeholder="Enter a number between 1-10">
+    <button onclick="checks()">Check</button>
+    <button onclick="reset()">Reset</button>
+    <p id="showingresult">Start Guessing...</p>
+    <p id="score">Score : 10</p>
+</main>
+
+<script>
+
+var guessednumber = document.getElementById("guessednumber")
+var showingresult = document.getElementById("showingresult")
+var score = document.getElementById("score")
+
+var randomnumber = Math.floor(Math.random() * 10) + 1
+var totalscore = 10
+var gameover = false
+
+function checks()
+{
+    if (gameover) {
+        alert("Game Over! Please Reset.")
+        return
+    }
+
+    var enterednumber = Number(guessednumber.value)
+
+    if (!enterednumber || enterednumber < 1 || enterednumber > 10) {
+        showingresult.textContent = "Enter valid number (1-10)"
+        showingresult.className = "lost"
+        return
+    }
+
+    if (enterednumber === randomnumber)
+    {
+        showingresult.textContent = "Correct 🎉"
+        showingresult.className = "correct"
+        gameover = true
+
+        setTimeout(function(){
+            alert("You Won 🎉")
+        }, 100)
+    }
+
+    else if (enterednumber > randomnumber)
+    {
+        totalscore--
+        score.textContent = "Score : " + totalscore
+        showingresult.textContent = "Too High ⬆️"
+        showingresult.className = "high"
+    }
+
+    else
+    {
+        totalscore--
+        score.textContent = "Score : " + totalscore
+        showingresult.textContent = "Too Low ⬇️"
+        showingresult.className = "low"
+    }
+
+    if (totalscore === 0)
+    {
+        showingresult.textContent = "You Lost 😢 (Number was " + randomnumber + ")"
+        showingresult.className = "lost"
+        gameover = true
+    }
+}
+
+function reset()
+{
+    randomnumber = Math.floor(Math.random() * 10) + 1
+    totalscore = 10
+    gameover = false
+
+    guessednumber.value = ""
+    score.textContent = "Score : 10"
+    showingresult.textContent = "Start Guessing..."
+    showingresult.className = ""
+}
+
+</script>
+
+</body>
+</html>
